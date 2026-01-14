@@ -5,7 +5,7 @@ Setup the core IO logic for managing the `.lazynotes/tags.json` file and handlin
 
 - [x] Task: Implement `io.get_root()` to identify project root based on `.lazynotes` or git. a6d7618
 - [x] Task: Implement `io.init_project()` to create `.lazynotes/tags.json` if missing. a6469be
-- [ ] Task: Implement `io.read_tags()` and `io.write_tags()` with basic error handling.
+- [x] Task: Implement `io.read_tags()` and `io.write_tags()` with basic error handling. ad7fcb8
 - [ ] Task: Write tests for project initialization and tag IO.
 - [ ] Task: Implement to pass tests.
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Storage' (Protocol in workflow.md)
