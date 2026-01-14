@@ -13,10 +13,10 @@ This plan outlines the implementation of the standardized note creation feature 
 - [x] Task: Implement kebab-case conversion utility (44cefb7)
     - [x] Create a utility function to transform "Title Case" to "kebab-case".
     - [x] Add tests for various input formats (spaces, special characters, casing).
-- [ ] Task: Implement template string generation
-    - [ ] Create a function to generate the markdown content.
-    - [ ] Ensure `date` is correctly formatted (YYYY-MM-DD).
-    - [ ] Ensure the Level 1 header matches the user's input.
+- [x] Task: Implement template string generation (9907480)
+    - [x] Create a function to generate the markdown content.
+    - [x] Ensure `date` is correctly formatted (YYYY-MM-DD).
+    - [x] Ensure the Level 1 header matches the user's input.
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Core Logic - Filename & Template Generation' (Protocol in workflow.md)
 
 ## Phase 3: File System Integration & UX
