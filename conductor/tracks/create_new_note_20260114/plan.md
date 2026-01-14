@@ -19,7 +19,7 @@ This plan outlines the implementation of the standardized note creation feature 
     - [x] Ensure the Level 1 header matches the user's input.
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Core Logic - Filename & Template Generation' (Protocol in workflow.md)
 
-## Phase 3: File System Integration & UX
+## Phase 3: File System Integration & UX [checkpoint: 927687d]
 - [x] Task: Implement file writing logic (1ed37d3)
     - [x] Use `plenary.path` for path manipulations.
     - [x] Handle existing files (abort with notification if file exists).
