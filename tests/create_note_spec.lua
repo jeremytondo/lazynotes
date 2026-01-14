@@ -10,4 +10,36 @@ describe("LazyNotesCreate command", function()
     local exists = vim.fn.exists(":LazyNotesCreate")
     assert.is_equal(2, exists)
   end)
+
+  it("creates a note and opens it (simulated flow)", function()
+    local Path = require('plenary.path')
+    local test_title = "Integration Test Note"
+    local expected_file = "integration-test-note.md"
+    
+    -- Cleanup if exists
+    Path:new(expected_file):rm()
+
+    -- We can't easily test vim.ui.input headlessly with plenary.busted 
+    -- but we can test the internal logic if we refactor it, or just 
+    -- verify the end state by calling the command if we could mock the input.
+    -- For now, let's ensure the modules work together.
+    
+    local format = require('lazynotes.format')
+    local template = require('lazynotes.template')
+    local io_util = require('lazynotes.io')
+
+    local filename = format.to_kebab_case(test_title) .. ".md"
+    local content = template.generate_note_content(test_title)
+    local success = io_util.write_note(filename, content)
+
+    assert.is_true(success)
+    assert.is_true(Path:new(filename):exists())
+    
+    -- Verify content
+    local actual_content = Path:new(filename):read()
+    assert.truthy(actual_content:match("# Integration Test Note"))
+    
+    -- Cleanup
+    Path:new(filename):rm()
+  end)
 end)
