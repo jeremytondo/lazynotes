@@ -48,3 +48,41 @@ describe("Tag Management - add_tag", function()
     fresh_root:rmdir({ recursive = true })
   end)
 end)
+
+describe("Tag Management - sync_tags", function()
+  local test_root
+  
+  before_each(function()
+    test_root = Path:new(vim.fn.tempname())
+    test_root:mkdir()
+    io_util.init_project(test_root:absolute())
+  end)
+
+  after_each(function()
+    if test_root and test_root:exists() then
+      test_root:rmdir({ recursive = true })
+    end
+  end)
+
+  it("scans markdown files and updates tags.json", function()
+    local note1 = test_root:joinpath("note1.md")
+    note1:write("---\ntags: [apple, banana]\n---\n", "w")
+    
+    local note2 = test_root:joinpath("note2.md")
+    note2:write("---\ntags:\n  - cherry\n  - apple\n---\n", "w")
+    
+    local success = tags_util.sync_tags(test_root:absolute())
+    assert.is_true(success)
+    
+    local tags = io_util.read_tags(test_root:absolute())
+    table.sort(tags)
+    assert.are.same({ "apple", "banana", "cherry" }, tags)
+  end)
+
+  it("handles empty project", function()
+    local success = tags_util.sync_tags(test_root:absolute())
+    assert.is_true(success)
+    local tags = io_util.read_tags(test_root:absolute())
+    assert.are.same({}, tags)
+  end)
+end)
