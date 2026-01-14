@@ -47,6 +47,13 @@ function M.setup(opts)
     if opts.keys.create_note then
       vim.keymap.set("n", opts.keys.create_note, ":LazyNotesCreate<CR>", { silent = true, desc = "Create new note" })
     end
+
+    local has_wk, wk = pcall(require, "which-key")
+    if has_wk then
+      wk.add({
+        { "<leader>z", group = "LazyNotes" },
+      })
+    end
   end
 end
 
