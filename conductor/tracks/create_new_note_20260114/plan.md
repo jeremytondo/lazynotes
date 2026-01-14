@@ -20,10 +20,10 @@ This plan outlines the implementation of the standardized note creation feature 
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Core Logic - Filename & Template Generation' (Protocol in workflow.md)
 
 ## Phase 3: File System Integration & UX
-- [ ] Task: Implement file writing logic
-    - [ ] Use `plenary.path` for path manipulations.
-    - [ ] Handle existing files (abort with notification if file exists).
-    - [ ] Write the generated template to the filesystem.
+- [x] Task: Implement file writing logic (1ed37d3)
+    - [x] Use `plenary.path` for path manipulations.
+    - [x] Handle existing files (abort with notification if file exists).
+    - [x] Write the generated template to the filesystem.
 - [ ] Task: Finalize UX: Open file and set cursor
     - [ ] Implement logic to open the newly created file in the current buffer.
     - [ ] Position the cursor at the end of the file.
