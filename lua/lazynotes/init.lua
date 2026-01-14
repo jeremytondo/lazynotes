@@ -43,6 +43,19 @@ function M.setup(opts)
     end)
   end, {})
 
+  vim.api.nvim_create_user_command("LazyNotesAddTag", function()
+    vim.ui.input({ prompt = "Add Tag: " }, function(input)
+      if not input or input == "" then
+        return
+      end
+
+      local tags = require("lazynotes.tags")
+      if tags.add_tag(input) then
+        vim.notify("LazyNotes: Added tag '" .. input .. "'", vim.log.levels.INFO)
+      end
+    end)
+  end, {})
+
   if opts.keys ~= false then
     if opts.keys.create_note then
       vim.keymap.set("n", opts.keys.create_note, ":LazyNotesCreate<CR>", { silent = true, desc = "Create new note" })
