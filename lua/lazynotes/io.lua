@@ -61,4 +61,53 @@ function M.init_project(root)
 	return true
 end
 
+function M.read_tags(root)
+	if not root then
+		return {}
+	end
+
+	local tags_json = Path:new(root):joinpath(".lazynotes", "tags.json")
+	if not tags_json:exists() then
+		return {}
+	end
+
+	local content = tags_json:read()
+	if not content or content == "" then
+		return {}
+	end
+
+	local ok, tags = pcall(vim.json.decode, content)
+	if not ok or type(tags) ~= "table" then
+		return {}
+	end
+
+	return tags
+end
+
+function M.write_tags(root, tags)
+	if not root then
+		return false
+	end
+
+	local lazynotes_dir = Path:new(root):joinpath(".lazynotes")
+	if not lazynotes_dir:exists() then
+		lazynotes_dir:mkdir()
+	end
+
+	local tags_json = lazynotes_dir:joinpath("tags.json")
+	local ok, content = pcall(vim.json.encode, tags)
+	if not ok then
+		vim.notify("LazyNotes: Failed to encode tags to JSON", vim.log.levels.ERROR)
+		return false
+	end
+
+	-- Ensure empty table is written as [] instead of {} if possible
+	if #tags == 0 then
+		content = "[]"
+	end
+
+	tags_json:write(content, "w")
+	return true
+end
+
 return M
