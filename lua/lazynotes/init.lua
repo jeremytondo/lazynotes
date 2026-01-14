@@ -1,7 +1,21 @@
 local M = {}
 
+local defaults = {
+  keys = {
+    create_note = "<leader>zn",
+  },
+}
+
 function M.setup(opts)
-  opts = opts or {}
+  if opts == nil then
+    opts = defaults
+  elseif opts.keys == false then
+    opts = vim.tbl_deep_extend("force", defaults, opts)
+    opts.keys = false
+  else
+    opts = vim.tbl_deep_extend("force", defaults, opts)
+  end
+
   vim.api.nvim_create_user_command("LazyNotesHealth", function()
     print("LazyNotes is active")
   end, {})
@@ -28,6 +42,12 @@ function M.setup(opts)
       end
     end)
   end, {})
+
+  if opts.keys ~= false then
+    if opts.keys.create_note then
+      vim.keymap.set("n", opts.keys.create_note, ":LazyNotesCreate<CR>", { silent = true, desc = "Create new note" })
+    end
+  end
 end
 
 return M
