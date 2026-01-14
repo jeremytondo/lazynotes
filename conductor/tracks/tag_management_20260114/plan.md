@@ -13,7 +13,7 @@ Setup the core IO logic for managing the `.lazynotes/tags.json` file and handlin
 ## Phase 2: Tag Management Commands and Logic
 Implement the logic for adding, parsing, and syncing tags across the project.
 
-- [ ] Task: Implement `tags.add_tag(tag)` logic to update the JSON file.
+- [x] Task: Implement `tags.add_tag(tag)` logic to update the JSON file. d13d8a4
 - [ ] Task: Create `LazyNotesAddTag` command using `vim.ui.input`.
 - [ ] Task: Implement frontmatter parser to extract tags from a buffer/file.
 - [ ] Task: Implement `LazyNotesSyncTags` to scan all markdown files and update `tags.json`.
