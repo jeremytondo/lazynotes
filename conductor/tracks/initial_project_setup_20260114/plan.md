@@ -11,7 +11,7 @@
 - [x] Task: Conductor - User Manual Verification 'Project Scaffolding & Testing Setup' (Protocol in workflow.md) [0a81350]
 
 ## Phase 2: Basic Command & Verification
-- [ ] Task: Write a failing test for a `:LazyNotesHealth` command (verifying it is created).
-- [ ] Task: Implement the `:LazyNotesHealth` command in `init.lua` to print/notify "LazyNotes is active".
-- [ ] Task: Verify tests pass.
+- [x] Task: Write a failing test for a `:LazyNotesHealth` command (verifying it is created). [7a82751]
+- [x] Task: Implement the `:LazyNotesHealth` command in `init.lua` to print/notify "LazyNotes is active". [7a82751]
+- [x] Task: Verify tests pass. [7a82751]
 - [ ] Task: Conductor - User Manual Verification 'Basic Command & Verification' (Protocol in workflow.md)
