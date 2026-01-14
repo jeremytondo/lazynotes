@@ -1,7 +1,7 @@
 # Track Plan: Initial Project Setup
 
 ## Phase 1: Project Scaffolding & Testing Setup
-- [ ] Task: Create project directory structure (`lua/lazynotes`, `tests`).
+- [x] Task: Create project directory structure (`lua/lazynotes`, `tests`). [d69bde2]
 - [ ] Task: Create `init.lua` with a basic `setup` function.
 - [ ] Task: Create `minimal_init.lua` for Plenary testing.
 - [ ] Task: Create `Makefile` or test runner script.
