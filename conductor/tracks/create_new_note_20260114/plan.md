@@ -24,7 +24,7 @@ This plan outlines the implementation of the standardized note creation feature 
     - [x] Use `plenary.path` for path manipulations.
     - [x] Handle existing files (abort with notification if file exists).
     - [x] Write the generated template to the filesystem.
-- [ ] Task: Finalize UX: Open file and set cursor
-    - [ ] Implement logic to open the newly created file in the current buffer.
-    - [ ] Position the cursor at the end of the file.
+- [x] Task: Finalize UX: Open file and set cursor (e3a72ff)
+    - [x] Implement logic to open the newly created file in the current buffer.
+    - [x] Position the cursor at the end of the file.
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: File System Integration & UX' (Protocol in workflow.md)
