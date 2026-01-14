@@ -1,5 +1,6 @@
 local io = require('lazynotes.io')
 local parser = require('lazynotes.parser')
+local format = require('lazynotes.format')
 local Path = require('plenary.path')
 local scan = require('plenary.scandir')
 local M = {}
@@ -12,6 +13,10 @@ function M.add_tag(tag, root)
 	end
 
 	io.init_project(root)
+	
+	-- Normalize tag
+	tag = format.to_kebab_case(tag)
+	
 	local tags = io.read_tags(root)
 
 	local exists = false
@@ -53,22 +58,26 @@ function M.sync_tags(root)
 		local content = path:read()
 		local tags = parser.get_tags(content)
 		for _, tag in ipairs(tags) do
-			if not tag_map[tag] then
+			tag = format.to_kebab_case(tag)
+			if not tag_map[tag] and tag ~= "" then
 				tag_map[tag] = true
 				table.insert(all_tags, tag)
 			end
 		end
 	end
 
-	-- Merge with existing tags in case some were manually added or deleted?
-	-- The spec says: "update tags.json to include any missing ones"
+	-- Merge with existing tags
 	local existing_tags = io.read_tags(root)
 	for _, tag in ipairs(existing_tags) do
-		if not tag_map[tag] then
+		-- assuming existing tags are already normalized, but let's be safe
+		tag = format.to_kebab_case(tag)
+		if not tag_map[tag] and tag ~= "" then
 			tag_map[tag] = true
 			table.insert(all_tags, tag)
 		end
 	end
+	
+	table.sort(all_tags)
 
 	return io.write_tags(root, all_tags)
 end

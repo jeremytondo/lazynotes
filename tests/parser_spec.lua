@@ -13,6 +13,16 @@ Content here.
     assert.are.same({ "tag1", "tag2", "tag3" }, tags)
   end)
 
+  it("extracts tags with spaces from list format", function()
+    local content = [[
+---
+tags: [tag one, tag two]
+---
+]]
+    local tags = parser.get_tags(content)
+    assert.are.same({ "tag one", "tag two" }, tags)
+  end)
+
   it("extracts tags from bullet point format", function()
     local content = [[
 ---

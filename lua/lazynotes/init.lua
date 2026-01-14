@@ -50,7 +50,10 @@ function M.setup(opts)
       end
 
       local tags = require("lazynotes.tags")
-      if tags.add_tag(input) then
+      -- Pass current buffer's directory to help find root
+      local root = require("lazynotes.io").get_root(vim.fn.expand("%:p:h"))
+      
+      if tags.add_tag(input, root) then
         vim.notify("LazyNotes: Added tag '" .. input .. "'", vim.log.levels.INFO)
       end
     end)
@@ -58,7 +61,8 @@ function M.setup(opts)
 
   vim.api.nvim_create_user_command("LazyNotesSyncTags", function()
     local tags = require("lazynotes.tags")
-    if tags.sync_tags() then
+    local root = require("lazynotes.io").get_root(vim.fn.expand("%:p:h"))
+    if tags.sync_tags(root) then
       vim.notify("LazyNotes: Tags synchronized", vim.log.levels.INFO)
     end
   end, {})
