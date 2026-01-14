@@ -43,4 +43,22 @@ function M.get_root(start_path)
 	return nil
 end
 
+function M.init_project(root)
+	if not root then
+		return false
+	end
+
+	local lazynotes_dir = Path:new(root):joinpath(".lazynotes")
+	if not lazynotes_dir:exists() then
+		lazynotes_dir:mkdir()
+	end
+
+	local tags_json = lazynotes_dir:joinpath("tags.json")
+	if not tags_json:exists() then
+		tags_json:write("[]", "w")
+	end
+
+	return true
+end
+
 return M

@@ -42,3 +42,42 @@ describe("IO Utility - get_root", function()
     assert.is_nil(root)
   end)
 end)
+
+describe("IO Utility - init_project", function()
+  local test_root
+  
+  before_each(function()
+    test_root = Path:new(vim.fn.tempname())
+    test_root:mkdir()
+  end)
+
+  after_each(function()
+    if test_root and test_root:exists() then
+      test_root:rmdir({ recursive = true })
+    end
+  end)
+
+  it("creates .lazynotes directory and tags.json", function()
+    local success = io_util.init_project(test_root:absolute())
+    assert.is_true(success)
+    
+    local lazynotes_dir = test_root:joinpath(".lazynotes")
+    local tags_json = lazynotes_dir:joinpath("tags.json")
+    
+    assert.is_true(lazynotes_dir:exists())
+    assert.is_true(lazynotes_dir:is_dir())
+    assert.is_true(tags_json:exists())
+    assert.are.same("[]", tags_json:read())
+  end)
+
+  it("does not overwrite tags.json if it already exists", function()
+    local lazynotes_dir = test_root:joinpath(".lazynotes")
+    lazynotes_dir:mkdir()
+    local tags_json = lazynotes_dir:joinpath("tags.json")
+    tags_json:write('["existing"]', "w")
+    
+    local success = io_util.init_project(test_root:absolute())
+    assert.is_true(success)
+    assert.are.same('["existing"]', tags_json:read())
+  end)
+end)
