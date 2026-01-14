@@ -9,7 +9,7 @@ This plan outlines the implementation of the standardized note creation feature 
     - [x] Implement `vim.ui.input` call to capture user title.
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Foundation & Command Registration' (Protocol in workflow.md)
 
-## Phase 2: Core Logic - Filename & Template Generation
+## Phase 2: Core Logic - Filename & Template Generation [checkpoint: 4bb1c2e]
 - [x] Task: Implement kebab-case conversion utility (44cefb7)
     - [x] Create a utility function to transform "Title Case" to "kebab-case".
     - [x] Add tests for various input formats (spaces, special characters, casing).
