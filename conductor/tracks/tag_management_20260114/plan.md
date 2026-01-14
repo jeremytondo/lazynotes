@@ -3,7 +3,7 @@
 ## Phase 1: Tag Storage and Project Initialization
 Setup the core IO logic for managing the `.lazynotes/tags.json` file and handling project discovery.
 
-- [ ] Task: Implement `io.get_root()` to identify project root based on `.lazynotes` or git.
+- [x] Task: Implement `io.get_root()` to identify project root based on `.lazynotes` or git. a6d7618
 - [ ] Task: Implement `io.init_project()` to create `.lazynotes/tags.json` if missing.
 - [ ] Task: Implement `io.read_tags()` and `io.write_tags()` with basic error handling.
 - [ ] Task: Write tests for project initialization and tag IO.
