@@ -2,7 +2,7 @@
 
 This plan outlines the implementation of the standardized note creation feature for `LazyNotes`, following a Test-Driven Development (TDD) approach.
 
-## Phase 1: Foundation & Command Registration
+## Phase 1: Foundation & Command Registration [checkpoint: 61d91aa]
 - [x] Task: Register `:LazyNotesCreate` command and basic prompt logic (c233884)
     - [x] Create `lua/lazynotes/init.lua` if it doesn't exist or update it.
     - [x] Implement command registration using `vim.api.nvim_create_user_command`.
