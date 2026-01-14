@@ -13,7 +13,7 @@ describe("LazyNotesCreate command", function()
 
   it("creates a note and opens it (simulated flow)", function()
     local Path = require('plenary.path')
-    local test_title = "Integration Test Note"
+    local test_title = "integration test note"
     local expected_file = "integration-test-note.md"
     
     -- Cleanup if exists
@@ -29,13 +29,13 @@ describe("LazyNotesCreate command", function()
     local io_util = require('lazynotes.io')
 
     local filename = format.to_kebab_case(test_title) .. ".md"
-    local content = template.generate_note_content(test_title)
-    local success = io_util.write_note(filename, content)
+    local title_case_title = format.to_title_case(test_title)
+    local content = template.generate_note_content(title_case_title)
 
-    assert.is_true(success)
+    assert.is_true(io_util.write_note(filename, content))
     assert.is_true(Path:new(filename):exists())
     
-    -- Verify content
+    -- Verify content is Title Case
     local actual_content = Path:new(filename):read()
     assert.truthy(actual_content:match("# Integration Test Note"))
     

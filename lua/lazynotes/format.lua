@@ -15,4 +15,16 @@ function M.to_kebab_case(str)
   return str
 end
 
+function M.to_title_case(str)
+  if not str or str == "" then return "" end
+  
+  -- Replace multiple spaces with single space and trim
+  str = str:gsub("%s+", " "):match("^%s*(.-)%s*$")
+  
+  -- Capitalize first letter of each word
+  return (str:gsub("(%a)([%w]*)", function(first, rest)
+    return first:upper() .. rest:lower()
+  end))
+end
+
 return M

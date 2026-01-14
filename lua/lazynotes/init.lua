@@ -17,7 +17,8 @@ function M.setup(opts)
       local io = require("lazynotes.io")
 
       local filename = format.to_kebab_case(input) .. ".md"
-      local content = template.generate_note_content(input)
+      local title_case_input = format.to_title_case(input)
+      local content = template.generate_note_content(title_case_input)
 
       if io.write_note(filename, content) then
         vim.cmd.edit(filename)

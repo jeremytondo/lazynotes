@@ -30,4 +30,31 @@ describe("Format Utility", function()
       assert.are.same("", format.to_kebab_case(nil))
     end)
   end)
+
+  describe("to_title_case", function()
+    it("converts lowercase to title case", function()
+      assert.are.same("New Test Note", format.to_title_case("new test note"))
+    end)
+
+    it("handles already title cased strings", function()
+      assert.are.same("Already Title Case", format.to_title_case("Already Title Case"))
+    end)
+
+    it("handles all caps", function()
+      assert.are.same("All Caps", format.to_title_case("ALL CAPS"))
+    end)
+
+    it("handles mixed case", function()
+      assert.are.same("Mixed Case", format.to_title_case("mIxEd CaSe"))
+    end)
+
+    it("handles multiple spaces", function()
+      assert.are.same("Multiple Spaces", format.to_title_case("multiple   spaces"))
+    end)
+
+    it("handles nil and empty strings", function()
+      assert.are.same("", format.to_title_case(""))
+      assert.are.same("", format.to_title_case(nil))
+    end)
+  end)
 end)
