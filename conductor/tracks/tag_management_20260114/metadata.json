@@ -1,0 +1,8 @@
+{
+  "track_id": "tag_management_20260114",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2026-01-14T00:00:00Z",
+  "updated_at": "2026-01-14T00:00:00Z",
+  "description": "Implement the tag management and autocompletion features."
+}
