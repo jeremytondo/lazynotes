@@ -27,4 +27,7 @@ This plan outlines the implementation of the standardized note creation feature 
 - [x] Task: Finalize UX: Open file and set cursor (e3a72ff)
     - [x] Implement logic to open the newly created file in the current buffer.
     - [x] Position the cursor at the end of the file.
+- [x] Task: Implement title case conversion for note header (d134345)
+    - [x] Add `to_title_case` utility to `format.lua`.
+    - [x] Update `:LazyNotesCreate` to use `to_title_case` for the note content.
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: File System Integration & UX' (Protocol in workflow.md)
