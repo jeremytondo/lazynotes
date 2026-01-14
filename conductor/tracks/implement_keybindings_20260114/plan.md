@@ -1,7 +1,7 @@
 # Plan: Implement Configurable Keybindings
 
 ## Phase 1: Configuration & Keymap Logic
-- [~] Task: Implement keybinding configuration logic
+- [x] Task: Implement keybinding configuration logic 2e31e42
     - [ ] Update `setup` in `init.lua` to parse `opts.keys`.
     - [ ] Implement default configuration table.
     - [ ] Apply keymappings using `vim.keymap.set`.
