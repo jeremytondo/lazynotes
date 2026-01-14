@@ -56,6 +56,13 @@ function M.setup(opts)
     end)
   end, {})
 
+  vim.api.nvim_create_user_command("LazyNotesSyncTags", function()
+    local tags = require("lazynotes.tags")
+    if tags.sync_tags() then
+      vim.notify("LazyNotes: Tags synchronized", vim.log.levels.INFO)
+    end
+  end, {})
+
   if opts.keys ~= false then
     if opts.keys.create_note then
       vim.keymap.set("n", opts.keys.create_note, ":LazyNotesCreate<CR>", { silent = true, desc = "Create new note" })
