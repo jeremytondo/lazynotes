@@ -9,7 +9,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Configuration & Keymap Logic' (Protocol in workflow.md) 2e31e42
 
 ## Phase 2: Which-Key Integration
-- [~] Task: Add optional which-key registration
+- [x] Task: Add optional which-key registration 25a399d
     - [ ] Check if `which-key` is available.
     - [ ] Register the group name for the prefix.
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Which-Key Integration' (Protocol in workflow.md)
