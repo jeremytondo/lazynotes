@@ -10,4 +10,5 @@ vim.opt.rtp:append(plenary_dir)
 vim.opt.runtimepath:append('.')
 vim.opt.runtimepath:append(plenary_dir)
 
+vim.cmd('runtime! plugin/plenary.vim')
 require('plenary.busted')
