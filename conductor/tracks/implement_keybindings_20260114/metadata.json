@@ -1,0 +1,7 @@
+{
+  "id": "implement_keybindings_20260114",
+  "name": "Implement Configurable Keybindings",
+  "description": "Add support for configurable keybindings with defaults and which-key integration.",
+  "created_at": "2026-01-14",
+  "status": "todo"
+}
