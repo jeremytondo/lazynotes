@@ -10,7 +10,7 @@ Setup the core IO logic for managing the `.lazynotes/tags.json` file and handlin
 - [x] Task: Implement to pass tests. ad7fcb8
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Storage' (Protocol in workflow.md) 7c20d0d
 
-## Phase 2: Tag Management Commands and Logic
+## Phase 2: Tag Management Commands and Logic [checkpoint: 4054aab]
 Implement the logic for adding, parsing, and syncing tags across the project.
 
 - [x] Task: Implement `tags.add_tag(tag)` logic to update the JSON file. d13d8a4
@@ -19,7 +19,7 @@ Implement the logic for adding, parsing, and syncing tags across the project.
 - [x] Task: Implement `LazyNotesSyncTags` to scan all markdown files and update `tags.json`. aad83e1
 - [x] Task: Write tests for tag parsing and syncing logic. aad83e1
 - [x] Task: Implement to pass tests. aad83e1
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Management' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Management' (Protocol in workflow.md) 4054aab
 
 ## Phase 3: Auto-Update on Save
 Integrate the tag acquisition logic into the Neovim buffer save workflow.
