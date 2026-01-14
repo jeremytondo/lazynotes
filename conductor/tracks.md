@@ -4,5 +4,5 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-## [ ] Track: Initial Project Setup
+## [~] Track: Initial Project Setup
 *Link: [./conductor/tracks/initial_project_setup_20260114/](./conductor/tracks/initial_project_setup_20260114/)*
