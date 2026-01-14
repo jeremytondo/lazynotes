@@ -3,7 +3,7 @@
 ## Phase 1: Project Scaffolding & Testing Setup
 - [x] Task: Create project directory structure (`lua/lazynotes`, `tests`). [d69bde2]
 - [x] Task: Create `init.lua` with a basic `setup` function. [01dfa4f]
-- [ ] Task: Create `minimal_init.lua` for Plenary testing.
+- [x] Task: Create `minimal_init.lua` for Plenary testing. [d8542bb]
 - [ ] Task: Create `Makefile` or test runner script.
 - [ ] Task: Write a failing test for the `setup` function in `tests/lazynotes_spec.lua`.
 - [ ] Task: Implement `setup` function in `lua/lazynotes/init.lua` to make the test pass.
