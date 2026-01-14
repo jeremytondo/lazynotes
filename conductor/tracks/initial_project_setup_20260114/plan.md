@@ -5,7 +5,7 @@
 - [x] Task: Create `init.lua` with a basic `setup` function. [01dfa4f]
 - [x] Task: Create `minimal_init.lua` for Plenary testing. [d8542bb]
 - [x] Task: Create `Makefile` or test runner script. [cd5ebea]
-- [ ] Task: Write a failing test for the `setup` function in `tests/lazynotes_spec.lua`.
+- [x] Task: Write a failing test for the `setup` function in `tests/lazynotes_spec.lua`. [5feefb6]
 - [ ] Task: Implement `setup` function in `lua/lazynotes/init.lua` to make the test pass.
 - [ ] Task: Verify tests pass.
 - [ ] Task: Conductor - User Manual Verification 'Project Scaffolding & Testing Setup' (Protocol in workflow.md)
