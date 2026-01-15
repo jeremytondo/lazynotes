@@ -24,7 +24,7 @@ Implement the logic for adding, parsing, and syncing tags across the project.
 ## Phase 3: Auto-Update on Save
 Integrate the tag acquisition logic into the Neovim buffer save workflow.
 
-- [ ] Task: Create an `autocmd` for `BufWritePost` on markdown files.
+- [x] Task: Create an `autocmd` for `BufWritePost` on markdown files. 08f1821
 - [ ] Task: Implement logic to trigger tag extraction and update `tags.json` on save.
 - [ ] Task: Write tests to verify `tags.json` updates after simulated buffer writes.
 - [ ] Task: Implement to pass tests.
