@@ -15,7 +15,7 @@ describe("LazyNotesCreate command", function()
     local Path = require('plenary.path')
     local test_title = "integration test note"
     local expected_file = "integration-test-note.md"
-    
+
     -- Cleanup if exists
     Path:new(expected_file):rm()
 
@@ -23,7 +23,7 @@ describe("LazyNotesCreate command", function()
     -- but we can test the internal logic if we refactor it, or just 
     -- verify the end state by calling the command if we could mock the input.
     -- For now, let's ensure the modules work together.
-    
+
     local format = require('lazynotes.format')
     local template = require('lazynotes.template')
     local io_util = require('lazynotes.io')
@@ -34,11 +34,11 @@ describe("LazyNotesCreate command", function()
 
     assert.is_true(io_util.write_note(filename, content))
     assert.is_true(Path:new(filename):exists())
-    
+
     -- Verify content is Title Case
     local actual_content = Path:new(filename):read()
     assert.truthy(actual_content:match("# Integration Test Note"))
-    
+
     -- Cleanup
     Path:new(filename):rm()
   end)

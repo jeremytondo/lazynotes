@@ -3,7 +3,7 @@ local io_util = require('lazynotes.io')
 
 describe("IO Utility - get_root", function()
   local test_root
-  
+
   before_each(function()
     test_root = Path:new(vim.fn.tempname())
     test_root:mkdir()
@@ -18,10 +18,10 @@ describe("IO Utility - get_root", function()
   it("finds root via .lazynotes directory", function()
     local lazynotes_dir = test_root:joinpath(".lazynotes")
     lazynotes_dir:mkdir()
-    
+
     local subdir = test_root:joinpath("sub", "deep")
     subdir:mkdir({ parents = true })
-    
+
     local root = io_util.get_root(subdir:absolute())
     assert.are.same(test_root:absolute(), root)
   end)
@@ -29,10 +29,10 @@ describe("IO Utility - get_root", function()
   it("finds root via .git directory", function()
     local git_dir = test_root:joinpath(".git")
     git_dir:mkdir()
-    
+
     local subdir = test_root:joinpath("sub")
     subdir:mkdir()
-    
+
     local root = io_util.get_root(subdir:absolute())
     assert.are.same(test_root:absolute(), root)
   end)
@@ -45,7 +45,7 @@ end)
 
 describe("IO Utility - init_project", function()
   local test_root
-  
+
   before_each(function()
     test_root = Path:new(vim.fn.tempname())
     test_root:mkdir()
@@ -60,10 +60,10 @@ describe("IO Utility - init_project", function()
   it("creates .lazynotes directory and tags.json", function()
     local success = io_util.init_project(test_root:absolute())
     assert.is_true(success)
-    
+
     local lazynotes_dir = test_root:joinpath(".lazynotes")
     local tags_json = lazynotes_dir:joinpath("tags.json")
-    
+
     assert.is_true(lazynotes_dir:exists())
     assert.is_true(lazynotes_dir:is_dir())
     assert.is_true(tags_json:exists())
@@ -75,7 +75,7 @@ describe("IO Utility - init_project", function()
     lazynotes_dir:mkdir()
     local tags_json = lazynotes_dir:joinpath("tags.json")
     tags_json:write('["existing"]', "w")
-    
+
     local success = io_util.init_project(test_root:absolute())
     assert.is_true(success)
     assert.are.same('["existing"]', tags_json:read())
@@ -84,7 +84,7 @@ end)
 
 describe("IO Utility - read/write tags", function()
   local test_root
-  
+
   before_each(function()
     test_root = Path:new(vim.fn.tempname())
     test_root:mkdir()
@@ -106,7 +106,7 @@ describe("IO Utility - read/write tags", function()
     local tags_to_write = { "tag1", "tag2" }
     local success = io_util.write_tags(test_root:absolute(), tags_to_write)
     assert.is_true(success)
-    
+
     local read_tags = io_util.read_tags(test_root:absolute())
     assert.are.same(tags_to_write, read_tags)
   end)
@@ -114,7 +114,7 @@ describe("IO Utility - read/write tags", function()
   it("handles malformed JSON in tags.json", function()
     local tags_json = test_root:joinpath(".lazynotes", "tags.json")
     tags_json:write('not json', "w")
-    
+
     local tags = io_util.read_tags(test_root:absolute())
     assert.are.same({}, tags)
   end)

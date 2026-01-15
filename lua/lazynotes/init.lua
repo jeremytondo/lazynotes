@@ -16,19 +16,19 @@ function M.setup(opts)
   if opts == nil then
     opts = {}
   end
-  
+
   -- Reset config to defaults to ensure clean state for each setup call (useful for tests)
   M.config = vim.deepcopy(defaults)
-  
+
   -- Handle keys option separately if it's explicitly false
   local keys_disabled = (opts.keys == false)
-  
+
   M.config = vim.tbl_deep_extend("force", M.config, opts)
-  
+
   if keys_disabled then
     M.config.keys = false
   end
-  
+
   -- Check if keys is nil (shouldn't happen with deep_extend unless passed as nil explicitly which deep_extend ignores, or if defaults were overwritten)
   -- But let's be safe.
   if M.config.keys == nil then
@@ -71,7 +71,7 @@ function M.setup(opts)
       local tags = require("lazynotes.tags")
       -- Pass current buffer's directory to help find root
       local root = require("lazynotes.io").get_root(vim.fn.expand("%:p:h"))
-      
+
       if tags.add_tag(input, root) then
         vim.notify("LazyNotes: Added tag '" .. input .. "'", vim.log.levels.INFO)
       end

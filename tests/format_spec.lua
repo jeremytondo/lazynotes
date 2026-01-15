@@ -25,7 +25,7 @@ describe("Format Utility", function()
     it("handles empty strings", function()
       assert.are.same("", format.to_kebab_case(""))
     end)
-    
+
     it("handles nil input", function()
       assert.are.same("", format.to_kebab_case(nil))
     end)

@@ -1,22 +1,25 @@
-local io = require('lazynotes.io')
-local parser = require('lazynotes.parser')
-local format = require('lazynotes.format')
-local Path = require('plenary.path')
-local scan = require('plenary.scandir')
+local io = require("lazynotes.io")
+local parser = require("lazynotes.parser")
+local format = require("lazynotes.format")
+local Path = require("plenary.path")
+local scan = require("plenary.scandir")
 local M = {}
 
 function M.add_tag(tag, root)
 	root = root or io.get_root()
 	if not root then
-		vim.notify("LazyNotes: Could not find project root. Are you in a git repo or have a .lazynotes folder?", vim.log.levels.ERROR)
+		vim.notify(
+			"LazyNotes: Could not find project root. Are you in a git repo or have a .lazynotes folder?",
+			vim.log.levels.ERROR
+		)
 		return false
 	end
 
 	io.init_project(root)
-	
+
 	-- Normalize tag
 	tag = format.to_kebab_case(tag)
-	
+
 	local tags = io.read_tags(root)
 
 	local exists = false
@@ -47,7 +50,7 @@ function M.sync_tags(root)
 	-- Determine configuration
 	local global_config = require("lazynotes").config or {}
 	local project_config = io.read_config(root)
-	
+
 	-- Default true, override with global, then override with project
 	local respect_gitignore = true
 	if global_config.tag_sync and global_config.tag_sync.respect_gitignore ~= nil then
@@ -89,7 +92,7 @@ function M.sync_tags(root)
 			table.insert(all_tags, tag)
 		end
 	end
-	
+
 	table.sort(all_tags)
 
 	return io.write_tags(root, all_tags)

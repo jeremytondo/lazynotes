@@ -17,7 +17,7 @@ end
 local function is_in_tags_context()
   local line = vim.api.nvim_get_current_line()
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-  
+
   -- 1. Simple check: is the current line part of the frontmatter?
   -- Frontmatter is between --- and --- at the top of the file.
   local lines = vim.api.nvim_buf_get_lines(0, 0, row, false)
@@ -28,18 +28,18 @@ local function is_in_tags_context()
       dash_count = dash_count + 1
     end
   end
-  
+
   if dash_count ~= 1 then
     return false
   end
-  
+
   -- 2. Is the line the 'tags' line or a bullet point under 'tags'?
   if line:match("^tags:%s*%[") or line:match("^%s*-%s*") then
     -- Check if we are actually under the 'tags:' key in the frontmatter
     -- This is a bit simplified, but good for a start.
     return true
   end
-  
+
   return false
 end
 

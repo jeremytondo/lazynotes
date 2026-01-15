@@ -29,7 +29,7 @@ function M.get_tags(content)
 	-- Capture everything from "tags:\n" until the next section (--- or key:)
 	-- But simplistic approach: capture until end of block
 	local bullet_block = frontmatter:match("tags:%s*\n(.-)\n[a-z]") or frontmatter:match("tags:%s*\n(.-)$")
-	
+
 	if bullet_block then
 		for line in bullet_block:gmatch("[^\r\n]+") do
 			local tag = line:match("^%s*-%s*(.-)%s*$")

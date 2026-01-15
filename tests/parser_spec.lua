@@ -50,7 +50,7 @@ title: No tags
     local tags = parser.get_tags(content)
     assert.are.same({}, tags)
   end)
-  
+
   it("extracts tags even if frontmatter is not at the very top (though it should be)", function()
     -- Some parsers are lenient. Let's see if we want to be.
     -- Usually it MUST be at the top.

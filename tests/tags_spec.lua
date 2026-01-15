@@ -4,7 +4,7 @@ local tags_util = require('lazynotes.tags')
 
 describe("Tag Management - add_tag", function()
   local test_root
-  
+
   before_each(function()
     test_root = Path:new(vim.fn.tempname())
     test_root:mkdir()
@@ -20,7 +20,7 @@ describe("Tag Management - add_tag", function()
   it("adds a new tag to tags.json", function()
     local success = tags_util.add_tag("new-tag", test_root:absolute())
     assert.is_true(success)
-    
+
     local tags = io_util.read_tags(test_root:absolute())
     assert.are.same({ "new-tag" }, tags)
   end)
@@ -29,7 +29,7 @@ describe("Tag Management - add_tag", function()
     tags_util.add_tag("tag1", test_root:absolute())
     local success = tags_util.add_tag("tag1", test_root:absolute())
     assert.is_true(success)
-    
+
     local tags = io_util.read_tags(test_root:absolute())
     assert.are.same({ "tag1" }, tags)
   end)
@@ -38,20 +38,20 @@ describe("Tag Management - add_tag", function()
     local fresh_root = Path:new(vim.fn.tempname())
     fresh_root:mkdir()
     -- No init_project call here
-    
+
     local success = tags_util.add_tag("fresh", fresh_root:absolute())
     assert.is_true(success)
-    
+
     local tags = io_util.read_tags(fresh_root:absolute())
     assert.are.same({ "fresh" }, tags)
-    
+
     fresh_root:rmdir({ recursive = true })
   end)
 end)
 
 describe("Tag Management - sync_tags", function()
   local test_root
-  
+
   before_each(function()
     test_root = Path:new(vim.fn.tempname())
     test_root:mkdir()
@@ -67,13 +67,13 @@ describe("Tag Management - sync_tags", function()
   it("scans markdown files and updates tags.json", function()
     local note1 = test_root:joinpath("note1.md")
     note1:write("---\ntags: [apple, banana]\n---\n", "w")
-    
+
     local note2 = test_root:joinpath("note2.md")
     note2:write("---\ntags:\n  - cherry\n  - apple\n---\n", "w")
-    
+
     local success = tags_util.sync_tags(test_root:absolute())
     assert.is_true(success)
-    
+
     local tags = io_util.read_tags(test_root:absolute())
     table.sort(tags)
     assert.are.same({ "apple", "banana", "cherry" }, tags)
@@ -89,20 +89,20 @@ describe("Tag Management - sync_tags", function()
   it("respects local config for gitignore", function()
     -- Create a gitignore file
     test_root:joinpath(".gitignore"):write("ignored.md", "w")
-    
+
     -- Create an ignored file with a tag
     local ignored_note = test_root:joinpath("ignored.md")
     ignored_note:write("---\ntags: [ignored-tag]\n---\n", "w")
-    
+
     -- Default is respect_gitignore = true, so it should NOT be found
     tags_util.sync_tags(test_root:absolute())
     local tags = io_util.read_tags(test_root:absolute())
     assert.are.same({}, tags) -- Should be empty
-    
+
     -- Now create a local config to disable respect_gitignore
     local config_json = test_root:joinpath(".lazynotes", "config.json")
     config_json:write('{"tag_sync": {"respect_gitignore": false}}', "w")
-    
+
     -- Run sync again
     tags_util.sync_tags(test_root:absolute())
     tags = io_util.read_tags(test_root:absolute())
