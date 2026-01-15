@@ -30,7 +30,7 @@ Integrate the tag acquisition logic into the Neovim buffer save workflow.
 - [x] Task: Implement to pass tests. 08f1821
 - [x] Task: Conductor - User Manual Verification 'Phase 3: Auto-Update' (Protocol in workflow.md) 831ae65
 
-## Phase 4: Blink.cmp Integration
+## Phase 4: Blink.cmp Integration [checkpoint: 087247f]
 Implement the custom completion source to provide fuzzy tag suggestions.
 
 - [x] Task: Scaffold a basic `blink.cmp` source for LazyNotes. 40a844c
@@ -39,4 +39,4 @@ Implement the custom completion source to provide fuzzy tag suggestions.
 - [x] Task: Register the source with `blink.cmp`. fc0fcc3
 - [x] Task: Write integration tests for completion triggers. fc0fcc3
 - [x] Task: Implement to pass tests. fc0fcc3
-- [ ] Task: Conductor - User Manual Verification 'Phase 4: Autocompletion' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 4: Autocompletion' (Protocol in workflow.md) 087247f
