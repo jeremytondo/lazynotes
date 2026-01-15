@@ -85,4 +85,27 @@ describe("Tag Management - sync_tags", function()
     local tags = io_util.read_tags(test_root:absolute())
     assert.are.same({}, tags)
   end)
+
+  it("respects local config for gitignore", function()
+    -- Create a gitignore file
+    test_root:joinpath(".gitignore"):write("ignored.md", "w")
+    
+    -- Create an ignored file with a tag
+    local ignored_note = test_root:joinpath("ignored.md")
+    ignored_note:write("---\ntags: [ignored-tag]\n---\n", "w")
+    
+    -- Default is respect_gitignore = true, so it should NOT be found
+    tags_util.sync_tags(test_root:absolute())
+    local tags = io_util.read_tags(test_root:absolute())
+    assert.are.same({}, tags) -- Should be empty
+    
+    -- Now create a local config to disable respect_gitignore
+    local config_json = test_root:joinpath(".lazynotes", "config.json")
+    config_json:write('{"tag_sync": {"respect_gitignore": false}}', "w")
+    
+    -- Run sync again
+    tags_util.sync_tags(test_root:absolute())
+    tags = io_util.read_tags(test_root:absolute())
+    assert.are.same({ "ignored-tag" }, tags) -- Should be found now
+  end)
 end)

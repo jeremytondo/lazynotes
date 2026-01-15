@@ -110,4 +110,28 @@ function M.write_tags(root, tags)
 	return true
 end
 
+function M.read_config(root)
+	if not root then
+		return {}
+	end
+
+	local config_json = Path:new(root):joinpath(".lazynotes", "config.json")
+	if not config_json:exists() then
+		return {}
+	end
+
+	local content = config_json:read()
+	if not content or content == "" then
+		return {}
+	end
+
+	local ok, config = pcall(vim.json.decode, content)
+	if not ok or type(config) ~= "table" then
+		-- Optional: warn user about malformed config
+		return {}
+	end
+
+	return config
+end
+
 return M

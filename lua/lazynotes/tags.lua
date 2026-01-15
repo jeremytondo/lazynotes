@@ -44,9 +44,22 @@ function M.sync_tags(root)
 
 	io.init_project(root)
 
+	-- Determine configuration
+	local global_config = require("lazynotes").config or {}
+	local project_config = io.read_config(root)
+	
+	-- Default true, override with global, then override with project
+	local respect_gitignore = true
+	if global_config.tag_sync and global_config.tag_sync.respect_gitignore ~= nil then
+		respect_gitignore = global_config.tag_sync.respect_gitignore
+	end
+	if project_config.tag_sync and project_config.tag_sync.respect_gitignore ~= nil then
+		respect_gitignore = project_config.tag_sync.respect_gitignore
+	end
+
 	local files = scan.scan_dir(root, {
 		search_pattern = "%.md$",
-		respect_gitignore = true,
+		respect_gitignore = respect_gitignore,
 		hidden = false,
 	})
 

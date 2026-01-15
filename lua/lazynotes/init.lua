@@ -4,16 +4,34 @@ local defaults = {
   keys = {
     create_note = "<leader>zn",
   },
+  tag_sync = {
+    respect_gitignore = true,
+  },
 }
+
+M.config = vim.deepcopy(defaults)
 
 function M.setup(opts)
   if opts == nil then
-    opts = defaults
-  elseif opts.keys == false then
-    opts = vim.tbl_deep_extend("force", defaults, opts)
-    opts.keys = false
-  else
-    opts = vim.tbl_deep_extend("force", defaults, opts)
+    opts = {}
+  end
+  
+  -- Reset config to defaults to ensure clean state for each setup call (useful for tests)
+  M.config = vim.deepcopy(defaults)
+  
+  -- Handle keys option separately if it's explicitly false
+  local keys_disabled = (opts.keys == false)
+  
+  M.config = vim.tbl_deep_extend("force", M.config, opts)
+  
+  if keys_disabled then
+    M.config.keys = false
+  end
+  
+  -- Check if keys is nil (shouldn't happen with deep_extend unless passed as nil explicitly which deep_extend ignores, or if defaults were overwritten)
+  -- But let's be safe.
+  if M.config.keys == nil then
+      M.config.keys = { create_note = "<leader>zn" }
   end
 
   vim.api.nvim_create_user_command("LazyNotesHealth", function()
@@ -67,9 +85,9 @@ function M.setup(opts)
     end
   end, {})
 
-  if opts.keys ~= false then
-    if opts.keys.create_note then
-      vim.keymap.set("n", opts.keys.create_note, ":LazyNotesCreate<CR>", { silent = true, desc = "Create new note" })
+  if M.config.keys ~= false then
+    if M.config.keys.create_note then
+      vim.keymap.set("n", M.config.keys.create_note, ":LazyNotesCreate<CR>", { silent = true, desc = "Create new note" })
     end
 
     local has_wk, wk = pcall(require, "which-key")
