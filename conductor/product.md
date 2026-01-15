@@ -36,15 +36,19 @@ The plugin should expose a command that prompts the user for the title of the no
 ### Tagging
 I like to add some extra notes organization with tags. This feature helps manage tags and provides autocompletion when adding tags to a note.
 
-This feature uses a cache type file in the root of the current folder. This would be something like:
+This feature uses a centralized JSON file in the root of the current folder to store unique tags.
 
 `.lazynotes/tags.json`
 
-This file will contain a list of tags to make it easy and fast to provide autocompletion and to keep tags consistent.
+Tags are automatically extracted from note frontmatter on save, and can be manually synchronized across the project or added individually. Tags are normalized to `kebab-case` to ensure consistency.
 
-We could also maybe store additional data there if it would be helpful. Maybe things like:
+**Key Tagging Features:**
+- **Auto-Acquisition:** New tags in frontmatter are added to the library on file save.
+- **Manual Sync:** Scan all markdown files in the project to rebuild the tag library.
+- **Normalization:** Consistent formatting (kebab-case) for all stored tags.
 
-- Number of times a tag is used.
+### Configuration
+LazyNotes supports both global configuration via `setup()` and project-local configuration via `.lazynotes/config.json`. This allows for fine-grained control over features like `.gitignore` awareness on a per-project basis.
 
 #### Tag autocompletion
 If a user is editing the tags block inside the yaml frontmatter of a markdown file that is inside a project that contains a .lazynotes folder at its root, we should provide autocompletion of those tags via blink.cmp. This will allow nice features like fuzzy finding tags as a user types.
