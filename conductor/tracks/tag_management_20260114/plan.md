@@ -36,7 +36,7 @@ Implement the custom completion source to provide fuzzy tag suggestions.
 - [x] Task: Scaffold a basic `blink.cmp` source for LazyNotes. 40a844c
 - [x] Task: Implement context detection (is cursor in frontmatter tags array?). 40a844c
 - [x] Task: Connect the completion source to `io.read_tags()`. 40a844c
-- [ ] Task: Register the source with `blink.cmp`.
-- [ ] Task: Write integration tests for completion triggers.
-- [ ] Task: Implement to pass tests.
+- [x] Task: Register the source with `blink.cmp`. fc0fcc3
+- [x] Task: Write integration tests for completion triggers. fc0fcc3
+- [x] Task: Implement to pass tests. fc0fcc3
 - [ ] Task: Conductor - User Manual Verification 'Phase 4: Autocompletion' (Protocol in workflow.md)
