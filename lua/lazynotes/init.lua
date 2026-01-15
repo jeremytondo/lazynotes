@@ -87,6 +87,21 @@ function M.setup(opts)
   end, {})
 
   -- Auto-update tags on save
+  local augroup = vim.api.nvim_create_augroup("LazyNotesAutoSync", { clear = true })
+  
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = "*.md",
+    callback = function()
+      local tags = require("lazynotes.tags")
+      local io = require("lazynotes.io")
+      local root = io.get_root(vim.fn.expand("%:p:h"))
+      if root then
+        tags.normalize_buffer_tags(0)
+      end
+    end,
+    group = augroup,
+  })
+
   vim.api.nvim_create_autocmd("BufWritePost", {
     pattern = "*.md",
     callback = function()
@@ -97,7 +112,7 @@ function M.setup(opts)
         tags.sync_tags(root)
       end
     end,
-    group = vim.api.nvim_create_augroup("LazyNotesAutoSync", { clear = true }),
+    group = augroup,
   })
 
   if M.config.keys ~= false then

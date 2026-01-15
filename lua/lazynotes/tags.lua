@@ -98,4 +98,70 @@ function M.sync_tags(root)
 	return io.write_tags(root, all_tags)
 end
 
+function M.normalize_buffer_tags(bufnr)
+	bufnr = bufnr or vim.api.nvim_get_current_buf()
+	local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+	local in_frontmatter = false
+	local in_tags_block = false
+	local modified = false
+
+	for i, line in ipairs(lines) do
+		-- Check frontmatter boundaries
+		if line:match("^%-%-%-") then
+			if i == 1 then
+				in_frontmatter = true
+			elseif in_frontmatter then
+				-- End of frontmatter
+				break
+			end
+			goto continue
+		end
+
+		if in_frontmatter then
+			-- Case 1: Inline list tags: [tag one, tag two]
+			if line:match("^tags:%s*%[") then
+				local prefix, list_content, suffix = line:match("^(tags:%s*%[)(.-)(%].*)$")
+				if list_content then
+					local tags = {}
+					for tag in list_content:gmatch("([^,]+)") do
+						table.insert(tags, format.to_kebab_case(tag))
+					end
+					local new_line = prefix .. table.concat(tags, ", ") .. suffix
+					if new_line ~= line then
+						lines[i] = new_line
+						modified = true
+					end
+				end
+				in_tags_block = false
+
+			-- Case 2: Start of tags block (tags:)
+			elseif line:match("^tags:%s*$") then
+				in_tags_block = true
+
+			-- Case 3: Bullet points inside tags block
+			elseif in_tags_block and line:match("^%s*-%s*") then
+				local indent, tag_content = line:match("^(%s*-%s*)(.*)$")
+				if tag_content then
+					local new_tag = format.to_kebab_case(tag_content)
+					local new_line = indent .. new_tag
+					if new_line ~= line then
+						lines[i] = new_line
+						modified = true
+					end
+				end
+
+			-- Case 4: Any other key resets tags block context
+			elseif line:match("^[a-z].-:") then
+				in_tags_block = false
+			end
+		end
+
+		::continue::
+	end
+
+	if modified then
+		vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, lines)
+	end
+end
+
 return M
