@@ -7,6 +7,7 @@ local defaults = {
   tag_sync = {
     respect_gitignore = true,
   },
+  blink_cmp_source = "lazynotes",
 }
 
 M.config = vim.deepcopy(defaults)
@@ -32,6 +33,13 @@ function M.setup(opts)
   -- But let's be safe.
   if M.config.keys == nil then
       M.config.keys = { create_note = "<leader>zn" }
+  end
+
+  -- Register blink.cmp source if blink is present
+  local has_blink, blink = pcall(require, "blink.cmp")
+  if has_blink and M.config.blink_cmp_source then
+    local completion = require("lazynotes.completion")
+    blink.add_provider(M.config.blink_cmp_source, completion.new())
   end
 
   vim.api.nvim_create_user_command("LazyNotesHealth", function()
