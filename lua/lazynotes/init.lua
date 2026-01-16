@@ -69,8 +69,12 @@ function M.setup(opts)
       end
 
       local tags = require("lazynotes.tags")
-      -- Pass current buffer's directory to help find root
-      local root = require("lazynotes.io").get_root(vim.fn.expand("%:p:h"))
+      local io = require("lazynotes.io")
+
+      -- Handle directory buffers and fallback to current dir for new projects
+      local current_path = vim.fn.expand("%:p")
+      local search_path = vim.fn.isdirectory(current_path) == 1 and current_path or vim.fn.expand("%:p:h")
+      local root = io.get_root(search_path) or search_path
 
       if tags.add_tag(input, root) then
         vim.notify("LazyNotes: Added tag '" .. input .. "'", vim.log.levels.INFO)
@@ -80,7 +84,13 @@ function M.setup(opts)
 
   vim.api.nvim_create_user_command("LazyNotesSyncTags", function()
     local tags = require("lazynotes.tags")
-    local root = require("lazynotes.io").get_root(vim.fn.expand("%:p:h"))
+    local io = require("lazynotes.io")
+
+    -- Handle directory buffers and fallback to current dir for new projects
+    local current_path = vim.fn.expand("%:p")
+    local search_path = vim.fn.isdirectory(current_path) == 1 and current_path or vim.fn.expand("%:p:h")
+    local root = io.get_root(search_path) or search_path
+
     if tags.sync_tags(root) then
       vim.notify("LazyNotes: Tags synchronized", vim.log.levels.INFO)
     end
