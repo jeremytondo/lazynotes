@@ -38,6 +38,38 @@ function M.add_tag(tag, root)
 	return true
 end
 
+function M.update_tags(new_tags, root)
+	root = root or io.get_root()
+	if not root then
+		return false
+	end
+
+	io.init_project(root)
+
+	local current_tags = io.read_tags(root)
+	local tag_map = {}
+	for _, t in ipairs(current_tags) do
+		tag_map[t] = true
+	end
+
+	local modified = false
+	for _, tag in ipairs(new_tags) do
+		local normalized = format.to_kebab_case(tag)
+		if normalized ~= "" and not tag_map[normalized] then
+			table.insert(current_tags, normalized)
+			tag_map[normalized] = true
+			modified = true
+		end
+	end
+
+	if modified then
+		table.sort(current_tags)
+		return io.write_tags(root, current_tags)
+	end
+
+	return true
+end
+
 function M.sync_tags(root)
 	root = root or io.get_root()
 	if not root then

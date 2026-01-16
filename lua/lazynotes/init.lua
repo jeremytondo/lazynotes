@@ -107,9 +107,17 @@ function M.setup(opts)
     callback = function()
       local tags = require("lazynotes.tags")
       local io = require("lazynotes.io")
+      local parser = require("lazynotes.parser")
       local root = io.get_root(vim.fn.expand("%:p:h"))
+
       if root then
-        tags.sync_tags(root)
+        local bufnr = vim.api.nvim_get_current_buf()
+        local content = table.concat(vim.api.nvim_buf_get_lines(bufnr, 0, -1, false), "\n")
+        local file_tags = parser.get_tags(content)
+
+        if #file_tags > 0 then
+          tags.update_tags(file_tags, root)
+        end
       end
     end,
     group = augroup,

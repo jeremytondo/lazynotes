@@ -95,15 +95,21 @@ function M.write_tags(root, tags)
 	end
 
 	local tags_json = lazynotes_dir:joinpath("tags.json")
-	local ok, content = pcall(vim.json.encode, tags)
-	if not ok then
-		vim.notify("LazyNotes: Failed to encode tags to JSON", vim.log.levels.ERROR)
-		return false
-	end
+	local content
 
-	-- Ensure empty table is written as [] instead of {} if possible
 	if #tags == 0 then
 		content = "[]"
+	else
+		local parts = {}
+		for _, tag in ipairs(tags) do
+			local ok, encoded_tag = pcall(vim.json.encode, tag)
+			if not ok then
+				vim.notify("LazyNotes: Failed to encode tag to JSON: " .. tostring(tag), vim.log.levels.ERROR)
+				return false
+			end
+			table.insert(parts, "  " .. encoded_tag)
+		end
+		content = "[\n" .. table.concat(parts, ",\n") .. "\n]"
 	end
 
 	tags_json:write(content, "w")
